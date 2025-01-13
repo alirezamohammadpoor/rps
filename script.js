@@ -13,3 +13,13 @@ if (choice === 0) {
 } else if (choice === 2) {
   console.log("SCISSORS");
 }
+
+let humanChoice = prompt("Rock, paper or scissors?");
+
+if (humanChoice == "rock") {
+  console.log("ROCK");
+} else if (humanChoice == "paper") {
+  console.log("PAPER");
+} else if (humanChoice == "scissors") {
+  console.log("SCISSORS");
+}
