@@ -6,6 +6,8 @@ const announceChampion = document.querySelector(".champion");
 
 function gameOver() {
   if (roundCount === 5) {
+    document.body.classList.add("game-over");
+
     const pickContainer = document.querySelector(".pick-container");
     pickContainer.textContent = "";
 
@@ -15,22 +17,51 @@ function gameOver() {
     const gameTitle = document.querySelector("h1");
     gameTitle.style.display = "none";
 
+    const champion = document.createElement("h1");
+    champion.classList.add("champion");
+
     if (humanScore > computerScore) {
-      const humanChampion = document.createElement("h1");
-      humanChampion.classList.add("human-champion");
-      humanChampion.textContent = "HUMAN IS THE CHAMPION";
-      announceChampion.appendChild(humanChampion);
+      champion.textContent = "HUMAN IS THE CHAMPION";
     } else if (humanScore < computerScore) {
-      const computerChampion = document.createElement("h1");
-      computerChampion.classList.add("computer-champion");
-      computerChampion.textContent = "COMPUTER IS THE CHAMPION";
-      announceChampion.appendChild(computerChampion);
+      champion.textContent = "COMPUTER IS THE CHAMPION";
     } else {
-      const tieChampion = document.createElement("h1");
-      tieChampion.classList.add("tie-champion");
-      tieChampion.textContent = "IT'S A TIE!";
-      announceChampion.appendChild(tieChampion);
+      champion.textContent = "IT'S A TIE!";
     }
+
+    announceChampion.appendChild(champion);
+
+    const restartButton = document.createElement("button");
+    restartButton.classList.add("restart-button");
+    restartButton.textContent = "Play Again";
+    announceChampion.appendChild(restartButton);
+
+    restartButton.addEventListener("click", () => {
+      document.body.classList.remove("game-over");
+      // Reset scores and round count
+      humanScore = 0;
+      computerScore = 0;
+      roundCount = 0;
+
+      // Update score display
+      const currentHumanScore = document.querySelector("#humanScore");
+      const currentComputerScore = document.querySelector("#computerScore");
+      currentHumanScore.textContent = "0";
+      currentComputerScore.textContent = "0";
+
+      // Clear champion announcement
+      announceChampion.textContent = "";
+
+      // Show game elements again
+      const pickContainer = document.querySelector(".pick-container");
+      const buttonsContainer = document.querySelector(".buttons");
+      const scoreContainer = document.querySelector(".score-container");
+      const gameTitle = document.querySelector("h1");
+
+      pickContainer.textContent = "";
+      buttonsContainer.style.display = "flex";
+      scoreContainer.style.display = "flex";
+      gameTitle.style.display = "block";
+    });
   }
 }
 
